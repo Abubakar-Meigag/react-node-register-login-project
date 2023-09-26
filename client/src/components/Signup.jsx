@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import validation from './validation/SignupValidation'
 
-
 function Signup() {
     const [values, setValues] = useState({
         name:"",
@@ -19,7 +18,6 @@ function Signup() {
         e.preventDefault();
         setErrors(validation(values));
     };
-
 
   return (
      <div className='d-flex justify-content-center align-items-center bg-primary vh-100'>

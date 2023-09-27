@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import validation from './validation/LoginValidation'
+import { Link, useNavigate } from 'react-router-dom';
+import validation from './validation/LoginValidation';
+// import axios from "axios";
 
 
 function Login() {
@@ -8,22 +9,24 @@ function Login() {
         email: '',
         password: ''
     })
-    const [errors, setErrors] = useState({})
+    const [errors, setErrors] = useState({});
+    const navigate = useNavigate();
 
     const handelInput = (e) => {
-        setValues(prev => ({...prev, [e.target.name]: [e.target.value]}))
+        setValues(prev => ({ ...prev, [e.target.name]: e.target.value }))
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
         setErrors(validation(values));
+        navigate("/");
     }
     
   return (
     <div className='d-flex justify-content-center align-items-center bg-primary vh-100'>
         <div className='bg-white p-3 rounded w-25'>
             <h2>Log in</h2>
-            <form action='' onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit}>
                 
                 <div className='mb-3'>
                     <label htmlFor='email'><strong>Email</strong></label>

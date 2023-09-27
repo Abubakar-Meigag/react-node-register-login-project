@@ -1,6 +1,8 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-import validation from './validation/SignupValidation'
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import validation from './validation/SignupValidation';
+import axios from 'axios';
+
 
 function Signup() {
     const [values, setValues] = useState({
@@ -9,21 +11,33 @@ function Signup() {
         password: ""
     });
     const [errors, setErrors] = useState({});
+    const navigate = useNavigate();
 
     const handelInput = (e) => {
-        setValues((prev) => ({ ...prev, [e.target.name]: [e.target.value] }));
+        setValues((prev) => ({ ...prev, [e.target.name] : e.target.value }));
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
         setErrors(validation(values));
-    };
+        try {
+        if(errors.name === "" && errors.email === "" && errors.password === ""){
+            axios.post("http://localhost:5090/signup", values)
+                .then(res => {
+                    navigate("/");
+                })
+            .catch(err => console.error(err))
+        }
+        } catch (err) {
+            console.error(err);
+        };
+    }
 
   return (
      <div className='d-flex justify-content-center align-items-center bg-primary vh-100'>
         <div className='bg-white p-3 rounded w-25'>
             <h2>Sign-Up</h2>
-            <form action='' onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit}>
                 
                 <div className='mb-3'>
                     <label htmlFor='Name'><strong>Name</strong></label>

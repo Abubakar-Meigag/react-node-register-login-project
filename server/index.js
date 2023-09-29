@@ -14,7 +14,7 @@ app.get("/", (req, res) => {
 });
 
 const db = new Pool({
-  user: "bekomeigag", // replace with you username
+  user: "bekomeigag", 
   host: "localhost",
   database: "sign_up",
   password: "",
